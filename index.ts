@@ -1,4 +1,4 @@
-import { CreationTimeIsBefore } from './rules/CreationTimeIsBefore';
+import { CreationTimeIsBefore } from './rules/CreationTimeIsBefore/CreationTimeIsBefore';
 import { StartTimeIsFixedAtNow } from './rules/StartTimeIsFixedAtNow';
 import { IPermit } from './app/IPermit';
 import { RulesEngine } from './app/RulesEngine';
@@ -10,16 +10,21 @@ let permit: IPermit = {
     end: undefined,
 };
 
-const eng = new RulesEngine(permit);
+const eng = new RulesEngine<IPermit>();
 
-const a = new CreationTimeIsBefore('17:00:00');
+const a = new CreationTimeIsBefore('12:00:00');
 const b = new StartTimeIsFixedAtNow();
 const c = new IsNotOnWhiteList();
 
-eng.register(a);
-eng.register(b);
-eng.register(c);
+eng.register(a)
+    .register(b)
+    .register(c);
 
-permit = eng.execute();
-
-console.log(permit);
+eng.run(permit).then(
+    (r) => {
+        console.log('index', r);
+    },
+    (e) => {
+        console.error(e);
+    },
+);

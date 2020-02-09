@@ -1,27 +1,41 @@
 import { IRule } from './IRule';
 import { IPermit } from './IPermit';
 
-export class RulesEngine {
-    private rules: IRule[] = [];
-    private currentState: IPermit;
+export class RulesEngine<T> {
+    private rules: IRule<T>[] = [];
 
-    constructor(state: IPermit) {
-        this.currentState = state;
-    }
-    public register(rule: IRule) {
+    private current: number = 0;
+
+    public register(rule: IRule<T>): RulesEngine<T> {
         this.rules.push(rule);
+        return this;
     }
 
-    public execute(): IPermit {
+    public run(input: T): Promise<T> {
+        return this.next(input);
+    }
+
+    private getCurrentRule(): IRule<T> {
+        if (this.current <= this.rules.length - 1) {
+            return this.rules[this.current];
+        }
+        return null;
+    }
+
+    protected incrementCurrent(): void {
+        this.current++;
+    }
+
+    protected next = async (input: T): Promise<T> => {
         try {
-            for (var rule of this.rules) {
-                console.info('Executing', rule);
-                this.currentState = rule.execute(this.currentState);
+            for (let rule of this.rules) {
+                input = await rule.invoke(input);
             }
-        } catch (error) {
-            console.error(error);
+        } catch (err) {
+            console.error('error', err);
+            throw err;
         }
 
-        return this.currentState;
-    }
+        return input;
+    };
 }

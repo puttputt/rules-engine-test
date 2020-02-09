@@ -1,12 +1,14 @@
-import { IRule } from '../app/IRule';
+import { IRule } from '../../app/IRule';
+import { Rule } from '../../app/Rule';
 import moment = require('moment');
-import { IPermit } from '../app/IPermit';
+import { IPermit } from '../../app/IPermit';
 
-export class CreationTimeIsBefore implements IRule {
+export class CreationTimeIsBefore extends Rule<IPermit> implements IRule<IPermit> {
     currentState!: any;
     context: any;
 
     constructor(time: string) {
+        super();
         this.context = moment(time, 'HH:mm:ss');
     }
 
@@ -23,7 +25,8 @@ export class CreationTimeIsBefore implements IRule {
         return this.currentState;
     }
 
-    execute(currentState: IPermit): IPermit {
+    async execute(currentState: IPermit): Promise<IPermit> {
+        console.log('CreationTimeIsBefore');
         this.currentState = currentState;
 
         if (this.condition()) {

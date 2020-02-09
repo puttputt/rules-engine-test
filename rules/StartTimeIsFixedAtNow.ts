@@ -1,7 +1,8 @@
 import { IRule } from '../app/IRule';
 import { IPermit } from '../app/IPermit';
+import { Rule } from '../app/Rule';
 
-export class StartTimeIsFixedAtNow implements IRule {
+export class StartTimeIsFixedAtNow extends Rule<IPermit> implements IRule<IPermit> {
     currentState!: IPermit;
     context: any;
 
@@ -10,7 +11,9 @@ export class StartTimeIsFixedAtNow implements IRule {
         return this.currentState;
     }
 
-    execute(state: IPermit): IPermit {
+    async execute(state: IPermit): Promise<IPermit> {
+        console.log('StartTimeIsFixedAtNow');
+
         this.currentState = state;
         return this.action();
     }
