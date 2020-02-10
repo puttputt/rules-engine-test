@@ -21,10 +21,6 @@ export class CreationTimeIsBefore extends Rule<IPermit> implements IRule<IPermit
         }
     }
 
-    action(): IPermit {
-        return this.currentState;
-    }
-
     async execute(currentState: IPermit): Promise<IPermit> {
         console.log('CreationTimeIsBefore');
         this.currentState = currentState;
