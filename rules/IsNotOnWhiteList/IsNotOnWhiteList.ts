@@ -4,7 +4,6 @@ import { WhiteListExampleService } from '../../services/WhiteListExampleService'
 import { Rule } from '../../app/Rule';
 
 export class IsNotOnWhiteList extends Rule<IPermit> {
-    currentState!: IPermit;
     context: WhiteListExampleService;
 
     constructor() {
@@ -14,10 +13,6 @@ export class IsNotOnWhiteList extends Rule<IPermit> {
 
     condition() {
         return this.context.isOnWhiteList(this.currentState.plate);
-    }
-
-    action() {
-        return this.currentState;
     }
 
     async execute(currentState: IPermit): Promise<IPermit> {

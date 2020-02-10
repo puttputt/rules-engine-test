@@ -4,7 +4,6 @@ import { Rule } from '../../app/Rule';
 
 export class StartTimeIsFixedAtNow extends Rule<IPermit> implements IRule<IPermit> {
     currentState!: IPermit;
-    context: any;
 
     action(): IPermit {
         this.currentState.start = new Date();
