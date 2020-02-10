@@ -1,8 +1,8 @@
 import { CreationTimeIsBefore } from './rules/CreationTimeIsBefore/CreationTimeIsBefore';
-import { StartTimeIsFixedAtNow } from './rules/StartTimeIsFixedAtNow';
+import { StartTimeIsFixedAtNow } from './rules/StartTimeIsFixedAtNow/StartTimeIsFixedAtNow';
 import { IPermit } from './app/IPermit';
 import { RulesEngine } from './app/RulesEngine';
-import { IsNotOnWhiteList } from './rules/IsNotOnWhiteList';
+import { IsNotOnWhiteList } from './rules/IsNotOnWhiteList/IsNotOnWhiteList';
 
 let permit: IPermit = {
     plate: 'asdf',

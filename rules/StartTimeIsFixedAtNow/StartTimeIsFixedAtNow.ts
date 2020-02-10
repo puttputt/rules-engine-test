@@ -1,6 +1,6 @@
-import { IRule } from '../app/IRule';
-import { IPermit } from '../app/IPermit';
-import { Rule } from '../app/Rule';
+import { IRule } from '../../app/IRule';
+import { IPermit } from '../../app/IPermit';
+import { Rule } from '../../app/Rule';
 
 export class StartTimeIsFixedAtNow extends Rule<IPermit> implements IRule<IPermit> {
     currentState!: IPermit;

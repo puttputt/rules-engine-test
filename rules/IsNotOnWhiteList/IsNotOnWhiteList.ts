@@ -1,7 +1,7 @@
-import { IRule } from '../app/IRule';
-import { IPermit } from '../app/IPermit';
-import { WhiteListExampleService } from '../services/WhiteListExampleService';
-import { Rule } from '../app/Rule';
+import { IRule } from '../../app/IRule';
+import { IPermit } from '../../app/IPermit';
+import { WhiteListExampleService } from '../../services/WhiteListExampleService';
+import { Rule } from '../../app/Rule';
 
 export class IsNotOnWhiteList extends Rule<IPermit> {
     currentState!: IPermit;
