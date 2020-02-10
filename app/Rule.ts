@@ -16,7 +16,6 @@ export class Rule<T> implements IRule<T> {
     }
 
     async invoke(input: T): Promise<T> {
-        var res = await this.execute(input);
-        return res;
+        return await this.execute(input);
     }
 }
